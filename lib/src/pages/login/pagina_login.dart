@@ -53,19 +53,7 @@ class PaginaLogin extends StatelessWidget {
             BoxShadow(
                 color: Colors.black54, blurRadius: 15, offset: Offset(0, 0.75))
           ]),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _textYourInfo(),
-            _textFieldEmail(),
-            _textFieldPassword(),
-            _buttonLogin()
-          ],
-        ),
-      ),
-    );
-  }
-
+     
   Widget _textFieldEmail() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
