@@ -18,7 +18,7 @@ class PaginaLogin extends StatelessWidget {
           _boxForm(context),
           Column(
             // POSICIONAR ELEMENTOS UNO DEBAJO DEL OTRO (VERTICAL)
-            children: [_imageCover(), _textAppName()],
+            children: [_textAppName()],
           ),
         ],
       ),
@@ -143,17 +143,5 @@ class PaginaLogin extends StatelessWidget {
   }
 
   // PRIVADO
-  Widget _imageCover() {
-    return SafeArea(
-      child: Container(
-        margin: EdgeInsets.only(top: 20, bottom: 15),
-        alignment: Alignment.center,
-        child: Image.asset(
-          'assets/img/login.png',
-          width: 130,
-          height: 130,
-        ),
-      ),
-    );
-  }
+
 }
