@@ -18,7 +18,7 @@ class PaginaLogin extends StatelessWidget {
           _boxForm(context),
           Column(
             // POSICIONAR ELEMENTOS UNO DEBAJO DEL OTRO (VERTICAL)
-            children: [_textAppName()],
+            children: [_imageCover(), _textAppName()],
           ),
         ],
       ),
@@ -53,7 +53,19 @@ class PaginaLogin extends StatelessWidget {
             BoxShadow(
                 color: Colors.black54, blurRadius: 15, offset: Offset(0, 0.75))
           ]),
-     
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _textYourInfo(),
+            _textFieldEmail(),
+            _textFieldPassword(),
+            _buttonLogin()
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _textFieldEmail() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
@@ -113,14 +125,14 @@ class PaginaLogin extends StatelessWidget {
       // UBICAR ELEMENTOS UNO AL LADO DEL OTRO (HORIZONTAL)
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           '¿No tienes cuenta?',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        SizedBox(width: 7),
+        const SizedBox(width: 7),
         GestureDetector(
-          onTap: () => con.goToRegisterPage(),
-          child: Text(
+          onTap: () => con.goToRegistroPagina(),
+          child: const Text(
             'Registrate Aqui',
             style: TextStyle(
                 color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 17),
@@ -129,7 +141,18 @@ class PaginaLogin extends StatelessWidget {
       ],
     );
   }
+}
 
-  // PRIVADO
-
+Widget _imageCover() {
+  return SafeArea(
+    child: Container(
+      margin: EdgeInsets.only(top: 20, bottom: 15),
+      alignment: Alignment.center,
+      child: Image.asset(
+        'assets/img/login.png',
+        width: 130,
+        height: 130,
+      ),
+    ),
+  );
 }
