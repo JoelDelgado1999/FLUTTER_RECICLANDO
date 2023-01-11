@@ -3,12 +3,18 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
+  var indexTab = 0.obs;
+  //PushNotificationsProvider pushNotificationsProvider = PushNotificationsProvider();
   User user = User.fromJson(GetStorage().read('user') ?? {});
-  HomeController() {
-    print('usuario de sesion  :${user.toJson()}');
+
+  void changeTab(int index) {
+    indexTab.value = index;
   }
-  void singOut() {
+
+  void signOut() {
     GetStorage().remove('user');
-    Get.offNamedUntil('/', (route) => false);
+
+    Get.offNamedUntil(
+        '/', (route) => false); // ELIMINAR EL HISTORIAL DE PANTALLAS
   }
 }

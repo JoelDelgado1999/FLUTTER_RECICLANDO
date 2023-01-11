@@ -4,7 +4,7 @@ import 'package:flutter_recolectando_innomine/src/pages/registro/registro_contro
 import 'package:get/get.dart';
 
 class RegistroPagina extends StatelessWidget {
-  RegistroController con = Get.put(RegistroController());
+  RegisterController con = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class RegistroPagina extends StatelessWidget {
         children: [
           _backgroundCover(context),
           _boxForm(context),
-          _botonRegresar(),
+          _buttonBack(),
           Column(
             // POSICIONAR ELEMENTOS UNO DEBAJO DEL OTRO (VERTICAL)
             children: [
@@ -25,6 +25,21 @@ class RegistroPagina extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buttonBack() {
+    return SafeArea(
+        child: Container(
+      margin: EdgeInsets.only(left: 20),
+      child: IconButton(
+        onPressed: () => con.gotoLogin(),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.amber,
+          size: 30,
+        ),
+      ),
+    ));
   }
 
   Widget _backgroundCover(BuildContext context) {
@@ -57,7 +72,7 @@ class RegistroPagina extends StatelessWidget {
             _textFielPhone(),
             _textFieldPassword(),
             _textFieldConfirPassword(),
-            _botonRegistro()
+            _botonRegistro(context)
           ],
         ),
       ),
@@ -108,7 +123,7 @@ class RegistroPagina extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
         controller: con.phoneController,
-        keyboardType: TextInputType.name,
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
             hintText: 'Telefono ',
             prefixIcon:
@@ -138,7 +153,7 @@ class RegistroPagina extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
-        controller: con.confirmpasswordController,
+        controller: con.confirmPasswordController,
         keyboardType: TextInputType.text,
         obscureText: true,
         decoration: InputDecoration(
@@ -151,12 +166,12 @@ class RegistroPagina extends StatelessWidget {
     );
   }
 
-  Widget _botonRegistro() {
+  Widget _botonRegistro(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
       child: ElevatedButton(
-          onPressed: () => con.Registro(),
+          onPressed: () => con.register(context),
           style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 15)),
           child: Text(
@@ -172,13 +187,16 @@ class RegistroPagina extends StatelessWidget {
         margin: EdgeInsets.only(top: 40),
         alignment: Alignment.topCenter,
         child: GestureDetector(
-          onTap: () => con.showAlertDialog(context),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/img/usuario2.png'),
-            radius: 60,
-            backgroundColor: Colors.white,
-          ),
-        ),
+            onTap: () => con.showAlertDialog(context),
+            child: GetBuilder<RegisterController>(
+              builder: (value) => CircleAvatar(
+                backgroundImage: con.imageFile != null
+                    ? FileImage(con.imageFile!)
+                    : AssetImage('assets/img/usuario2.png') as ImageProvider,
+                radius: 60,
+                backgroundColor: Colors.white,
+              ),
+            )),
       ),
     );
   }
@@ -207,19 +225,4 @@ class RegistroPagina extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _botonRegresar() {
-  return SafeArea(
-      child: Container(
-    margin: EdgeInsets.only(left: 0.5, top: 15),
-    child: IconButton(
-      onPressed: () => Get.back(),
-      icon: Icon(
-        Icons.arrow_back_ios_new_outlined,
-        color: Colors.amber,
-        size: 40,
-      ),
-    ),
-  ));
 }
